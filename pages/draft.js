@@ -19,7 +19,8 @@ export default function Draft({ data }) {
   );
 }
 
-export async function getServerSideProps() {
-  const data = await listPostDraft();
+export async function getServerSideProps(context) {
+  const limit = context.query.limit || 10;
+  const data = await listPostDraft(limit);
   return { props: { data } };
 }

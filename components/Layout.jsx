@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 import { RiDraftLine, RiAddCircleLine, RiApps2Line } from "react-icons/ri";
 import Modal from "./Modal";
 import DraftForm from "./DraftForm";
+import ShowPostCount from "./ShowPostCount";
+import SearchBar from "./SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +29,17 @@ export default function Layout({ children }) {
       <div
         className={`container max-h-screen overflow-hidden ${inter.className}`}
       >
-        <div className="flex justify-between items-end h-[120px]">
-          <div className="flex items-center gap-6">
+        <div className="flex justify-end pt-[30px]">
+          <button
+            onClick={() => setCreateModal(true)}
+            className="text-white p-3 rounded-lg font-bold bg-sky-500 flex items-center gap-2"
+          >
+            <RiAddCircleLine size={25} />
+            <span>Create Draft</span>
+          </button>
+        </div>
+        <div className="flex flex-col-reverse md:flex-row justify-between md:items-end md:h-[60px] gap-y-3 pt-3 md:pt-0">
+          <div className="flex items-center gap-6 justify-center md:justify-start">
             <Link href="/">
               <button
                 style={pageActiveStyle("/")}
@@ -48,16 +59,12 @@ export default function Layout({ children }) {
               </button>
             </Link>
           </div>
-          <div>
-            <button
-              onClick={() => setCreateModal(true)}
-              className="text-white p-3 rounded-lg font-bold bg-sky-500 flex items-center gap-2"
-            >
-              <RiAddCircleLine size={25} />
-              <span>Create Draft</span>
-            </button>
+          <div className="flex items-center gap-3 justify-center">
+            <SearchBar />
+            <ShowPostCount />
           </div>
         </div>
+
         <div className="mt-[30px] h-[calc(100vh-150px)] overflow-scroll pb-[30px]">
           {children}
         </div>

@@ -18,7 +18,8 @@ export default function Home({ data }) {
   );
 }
 
-export async function getServerSideProps() {
-  const data = await listPost();
+export async function getServerSideProps(context) {
+  const limit = context.query.limit || 10;
+  const data = await listPost(limit);
   return { props: { data } };
 }

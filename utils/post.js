@@ -10,13 +10,13 @@ export const listOnePost = async (id) => {
   return res.json();
 };
 
-export const listPost = async () => {
-  const res = await fetch(`${BASED_URL}/api/posts`);
+export const listPost = async (limit) => {
+  const res = await fetch(`${BASED_URL}/api/posts?limit=${limit}`);
   return res.json();
 };
 
-export const listPostDraft = async () => {
-  const res = await fetch(`${BASED_URL}/api/posts/draft`);
+export const listPostDraft = async (limit) => {
+  const res = await fetch(`${BASED_URL}/api/posts/draft?limit=${limit}`);
   return res.json();
 };
 
