@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Inter } from "next/font/google";
 import { RiDraftLine, RiAddCircleLine, RiApps2Line } from "react-icons/ri";
 import Modal from "./Modal";
+import DraftForm from "./DraftForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,7 +62,9 @@ export default function Layout({ children }) {
           {children}
         </div>
       </div>
-      <Modal isOpen={createModal} setIsOpen={setCreateModal} />
+      <Modal isOpen={createModal} setIsOpen={setCreateModal} title="New Post">
+        <DraftForm closeModal={() => setCreateModal(false)} />
+      </Modal>
     </>
   );
 }

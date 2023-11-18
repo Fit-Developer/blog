@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import DraftForm from "./DraftForm";
 
-export default function Modal({ isOpen, setIsOpen }) {
+export default function Modal({ isOpen, setIsOpen, children, title }) {
   function closeModal() {
     setIsOpen(false);
   }
@@ -43,11 +43,9 @@ export default function Modal({ isOpen, setIsOpen }) {
                     as="h3"
                     className="text-xl font-bold leading-6 text-gray-900"
                   >
-                    New Post
+                    {title}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <DraftForm closeModal={closeModal} />
-                  </div>
+                  <div className="mt-2">{children}</div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

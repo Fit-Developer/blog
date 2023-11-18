@@ -1,17 +1,14 @@
 import PostItem from "@/components/PostItem";
-import useFetch from "@/utils/useFetch";
-import { BASED_URL } from "@/config";
+import { listPost } from "@/utils/post";
 
-export default function Home() {
-  const { data, loading } = useFetch(`${BASED_URL}/api/posts`);
-
-  if (loading) {
+export default function Home({ data }) {
+  if (!data) {
     return <p>Loading post...</p>;
   }
 
   return (
     <div>
-      {data?.posts.length === 0 && (
+      {data?.posts?.length === 0 && (
         <div className="text-center font-semibold">No post!!!</div>
       )}
       {data?.posts?.map((item) => (
@@ -19,4 +16,9 @@ export default function Home() {
       ))}
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const data = await listPost();
+  return { props: { data } };
 }

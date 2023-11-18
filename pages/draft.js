@@ -1,12 +1,9 @@
 import PostItem from "@/components/PostItem";
 import React from "react";
-import useFetch from "@/utils/useFetch";
-import { BASED_URL } from "@/config";
+import { listPostDraft } from "@/utils/post";
 
-export default function Draft() {
-  const { data, loading } = useFetch(`${BASED_URL}/api/posts/draft`);
-
-  if (loading) {
+export default function Draft({ data }) {
+  if (!data) {
     return <p>Loading post...</p>;
   }
 
@@ -20,4 +17,9 @@ export default function Draft() {
       ))}
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const data = await listPostDraft();
+  return { props: { data } };
 }
