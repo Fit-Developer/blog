@@ -2,10 +2,6 @@ import PostItem from "@/components/PostItem";
 import { listPost } from "@/utils/post";
 
 export default function Home({ data }) {
-  if (!data) {
-    return <p>Loading post...</p>;
-  }
-
   return (
     <div>
       {data?.posts?.length === 0 && (
@@ -20,6 +16,7 @@ export default function Home({ data }) {
 
 export async function getServerSideProps(context) {
   const limit = context.query.limit || 10;
-  const data = await listPost(limit);
+  const term = context.query.term || "";
+  const data = await listPost(limit, term);
   return { props: { data } };
 }

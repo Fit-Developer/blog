@@ -3,10 +3,6 @@ import React from "react";
 import { listPostDraft } from "@/utils/post";
 
 export default function Draft({ data }) {
-  if (!data) {
-    return <p>Loading post...</p>;
-  }
-
   return (
     <div>
       {data?.posts.length === 0 && (
@@ -21,6 +17,7 @@ export default function Draft({ data }) {
 
 export async function getServerSideProps(context) {
   const limit = context.query.limit || 10;
-  const data = await listPostDraft(limit);
+  const term = context.query.term || "";
+  const data = await listPostDraft(limit, term);
   return { props: { data } };
 }

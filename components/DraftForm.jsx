@@ -1,7 +1,7 @@
-import { BASED_URL } from "@/config";
 import { createPost, listOnePost, publishPost, updatePost } from "@/utils/post";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function DraftForm({ closeModal, postId }) {
   const [title, setTitle] = useState("");
@@ -32,9 +32,12 @@ export default function DraftForm({ closeModal, postId }) {
         } else {
           await router.push("/draft");
         }
+        toast.success("Successfully updated post!");
       } else {
-        const error = await response.text();
-        alert(error);
+        const { error } = await response
+          .text()
+          .then((text) => JSON.parse(text));
+        toast.error(error);
       }
     } else {
       const response = await createPost(payload);
@@ -45,9 +48,12 @@ export default function DraftForm({ closeModal, postId }) {
         } else {
           await router.push("/draft");
         }
+        toast.success("Successfully created post!");
       } else {
-        const error = await response.text();
-        alert(error);
+        const { error } = await response
+          .text()
+          .then((text) => JSON.parse(text));
+        toast.error(error);
       }
     }
   };
@@ -65,13 +71,14 @@ export default function DraftForm({ closeModal, postId }) {
         } else {
           await router.replace(router.asPath);
         }
+        toast.success("Successfully created post and published!");
       } else {
-        const error = await publish.text();
-        alert(error);
+        const { error } = await publish.text().then((text) => JSON.parse(text));
+        toast.error(error);
       }
     } else {
-      const error = await response.text();
-      alert(error);
+      const { error } = await response.text().then((text) => JSON.parse(text));
+      toast.error(error);
     }
   };
 
